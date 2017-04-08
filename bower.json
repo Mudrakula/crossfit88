@@ -1,0 +1,21 @@
+{
+  "name": "crossfit88",
+  "description": "",
+  "main": "",
+  "authors": [
+    "mudrakula <mavpa_skm@mail.ru>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Mudrakula/crossfit88",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-router": "^0.4.2",
+    "angular": "^1.6.4"
+  }
+}
