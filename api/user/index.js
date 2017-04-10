@@ -7,6 +7,7 @@ var User = require('./user.model');
 
 router.get('/', (req, res) => {
   User.find()
+    .sort('trainer')
     .populate('trainer')
     .exec((err, data) => {
       res.status(200).json(data);

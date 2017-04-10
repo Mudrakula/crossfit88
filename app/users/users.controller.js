@@ -6,7 +6,6 @@ angular.module('crossfit88App')
     $scope.tickets = [];
     $scope.trainers = [];
     $scope.currentUser = null;
-    $scope.currentTrainer = null;
     $scope.currentTicket = null;
     $scope.getUsers = () => {
       $http.get('/api/users').then(res => {
@@ -25,7 +24,6 @@ angular.module('crossfit88App')
     $scope.getTrainers = () => {
       $http.get('/api/trainers').then(res => {
         $scope.trainers = res.data;
-        $scope.currentTrainer = $scope.trainers[0];
       });
     };
 
@@ -41,7 +39,7 @@ angular.module('crossfit88App')
     };
 
     $scope.showUserModal = user => {
-      $scope.currentUser = user ? _.clone(user) : null;
+      $scope.currentUser = user ? _.clone(user) : {trainer: $scope.trainers[0]};
       angular.element('#user-modal').modal();
     };
 
@@ -64,6 +62,8 @@ angular.module('crossfit88App')
           $scope.users.push(res.data);
         }
 
+        user = null;
+        ticket = null;
         angular.element('#user-modal').modal('hide');
       });
     };
