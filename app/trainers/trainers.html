@@ -1,0 +1,43 @@
+<h2>Trainers</h2>
+<span class="btn btn-primary" ng-click="showTrainerModal()">Add trainer</span>
+<div class="row trainers-header">
+  <div class="col-md-3">
+    <strong>Name</strong>
+  </div>
+  <div class="col-md-2">
+    <strong>Phone</strong>
+  </div>
+  <div class="col-md-3">
+    <strong>Actions</strong>
+  </div>
+</div>
+<div class="row trainer" ng-repeat="trainer in trainers">
+  <div class="col-md-5">
+    {{trainer.firstname + ' ' + trainer.lastname}}
+  </div>
+  <div class="col-md-4">{{trainer.phone}}</div>
+  <div class="col-md-3 trainer-actions">
+    <span class="btn btn-success" ng-click="showTrainerModal(trainer)">Edit</span>
+    <span class="btn btn-danger" ng-click="deleteTrainer(trainer._id)">Delete</span>
+  </div>
+</div>
+
+<div class="modal fade" id="trainer-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">{{currentTrainer ? 'Edit trainer' : 'Create trainer'}}</h4>
+      </div>
+      <div class="modal-body">
+        <input class="form-control" ng-model="currentTrainer.firstname" placeholder="Firstname">
+        <input class="form-control" ng-model="currentTrainer.lastname" placeholder="Lastname">
+        <input class="form-control" ng-model="currentTrainer.phone" placeholder="Phone">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="updateTrainer(currentTrainer)">{{currentTrainer ? 'Save changes' : 'Create'}}</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

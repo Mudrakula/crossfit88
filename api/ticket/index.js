@@ -3,11 +3,11 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var User = require('./user.model');
+var Ticket = require('./ticket.model');
 
 router.get('/', (req, res) => {
-  User.find()
-    .populate('trainer')
+  Ticket.find({})
+    .sort('cost')
     .exec((err, data) => {
       res.status(200).json(data);
     });
@@ -15,18 +15,16 @@ router.get('/', (req, res) => {
 
 router.post('/update', (req, res) => {
   req.body._id = req.body._id || new mongoose.mongo.ObjectID();
-  User.findOneAndUpdate({_id: req.body._id}, req.body, {new: true, upsert: true})
-    .populate('trainer')
-    .exec((err, data) => {
-      if (err)
-        return console.log(err);
+  Ticket.findOneAndUpdate({_id: req.body._id}, req.body, {new: true, upsert: true}, (err, data) => {
+    if (err)
+      return console.log(err);
 
-      res.status(200).json(data);
-    });
+    res.status(200).json(data);
+  });
 });
 
 router.post('/delete', (req, res) => {
-  User.remove({_id: req.body.id}, err => {
+  Ticket.remove({_id: req.body.id}, err => {
     if (err)
       return console.log(err);
 
