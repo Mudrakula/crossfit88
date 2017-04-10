@@ -5,6 +5,7 @@ var logger = require('morgan');
 var compression = require('compression');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var app = express();
 
@@ -13,6 +14,8 @@ var app = express();
 app.engine('html', require('ejs').renderFile);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
+
+mongoose.connect('mongodb://localhost/crossfit88');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -24,6 +27,8 @@ app.use(cookieParser());
 app.use('/app', express.static(path.join(__dirname, 'app')));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
+
+app.use('/api/users', require('./api/user'));
 
 app.route('/*')
   .get(function(req, res) {
