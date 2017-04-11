@@ -12,13 +12,19 @@ angular.module('crossfit88App')
     };
 
     $scope.deleteTicket = id => {
-      $http.post('/api/tickets/delete', {
-        id: id
-      }).then(res => {
-        if (res.status != 200)
-          return console.log(res);
+      swal({
+        title: 'Are you sure?',
+        type: 'warning',
+        showCancelButton: true
+      }, () => {
+        $http.post('/api/tickets/delete', {
+          id: id
+        }).then(res => {
+          if (res.status != 200)
+            return console.log(res);
 
-        $scope.tickets = _.filter($scope.tickets, ticket => ticket._id != id);
+          $scope.tickets = _.filter($scope.tickets, ticket => ticket._id != id);
+        });
       });
     };
 
@@ -28,6 +34,7 @@ angular.module('crossfit88App')
     };
 
     $scope.updateTicket = ticket => {
+      ticket.trainings.remain = ticket.trainings.total;
       $http.post('/api/tickets/update', ticket).then(res => {
         if (res.status != 200)
           return console.log(res);

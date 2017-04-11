@@ -9,6 +9,7 @@ let User = new Schema({
   birthDate: Number,
   trainer: {type: Schema.Types.ObjectId, ref: 'Trainer'},
   ticket: {
+    _id: String,
     title: String,
     status: Number,
     cost: Number,

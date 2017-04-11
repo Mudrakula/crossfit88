@@ -6,8 +6,22 @@ var mongoose = require('mongoose');
 var User = require('./user.model');
 
 router.get('/', (req, res) => {
-  User.find()
-    .sort('trainer')
+  let searchObj = {$or: [
+    {firstname: new RegExp(req.query.query, 'i')},
+    {lastname: new RegExp(req.query.query, 'i')}
+  ]};
+
+  if (req.query.ticket)
+    searchObj['ticket._id'] = req.query.ticket;
+
+  if (req.query.trainer)
+    searchObj['trainer'] = req.query.trainer;
+  User.find(searchObj)
+    .sort({
+      'trainer': 1,
+      'ticket.trainings.remain': 1,
+      'ticket.endDate': 1
+    })
     .populate('trainer')
     .exec((err, data) => {
       res.status(200).json(data);
@@ -32,7 +46,7 @@ router.post('/delete', (req, res) => {
       return console.log(err);
 
     res.status(200).send();
-  })
+  });
 });
 
 module.exports = router;

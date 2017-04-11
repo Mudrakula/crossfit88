@@ -1,36 +1,34 @@
-<h2>Users</h2>
-<span class="btn btn-primary" ng-click="showUserModal()">Add user</span>
-<div class="row users-header">
-  <div class="col-md-2">
-    <strong>Name</strong>
-  </div>
-  <div class="col-md-2">
-    <strong>Trainer</strong>
-  </div>
-  <div class="col-md-2">
-    <strong>Phone</strong>
-  </div>
-  <div class="col-md-2">
-    <strong>Trainings remain</strong>
-  </div>
-  <div class="col-md-2">
-    <strong>Days remain</strong>
-  </div>
-  <div class="col-md-2">
-    <strong>Actions</strong>
-  </div>
+<div class="clearfix searchbox">
+  <span class="btn btn-primary pull-right" ng-click="showUserModal()">Add user</span>
+  <input type="text" class="form-control" ng-model="search.query" ng-model-options="{debounce: 500}" ng-change="getUsers()" placeholder="Search">
+  <select class="form-control filter" ng-model="search.trainer" ng-change="getUsers()">
+    <option value="">All trainers</option>
+    <option ng-repeat="trainer in trainers" value="{{trainer._id}}">{{trainer.firstname + ' ' + trainer.lastname}}</option>
+  </select>
+  <select class="form-control filter" ng-model="search.ticket" ng-change="getUsers()">
+    <option value="">All tickets</option>
+    <option ng-repeat="ticket in tickets" value="{{ticket._id}}">{{ticket.title}}</option>
+  </select>
 </div>
-<div class="row user" ng-repeat="user in users">
+
+<div class="clearfix table-header">
+  <div class="col-md-2 text-center">Name</div>
+  <div class="col-md-2 text-center">Trainer</div>
+  <div class="col-md-2 text-center">Trainings remain</div>
+  <div class="col-md-2 text-center">Days remain</div>
+  <div class="col-md-4 text-center">Actions</div>
+</div>
+<div class="row table-row" ng-repeat="user in users">
   <div class="col-md-2">
     {{user.firstname + ' ' + user.lastname}}
   </div>
-  <div class="col-md-2">{{user.trainer.lastname}}</div>
-  <div class="col-md-2">{{user.phone}}</div>
-  <div class="col-md-2">{{user.ticket.trainings.remain}}</div>
-  <div class="col-md-2">{{getRaminingDays(user.ticket.endDate)}}</div>
-  <div class="col-md-2 user-actions">
-    <span class="btn btn-success" ng-click="showUserModal(user)">Edit</span>
-    <span class="btn btn-danger" ng-click="deleteUser(user._id)">Delete</span>
+  <div class="col-md-2 text-center">{{user.trainer.lastname}}</div>
+  <div class="col-md-2 text-center">{{user.ticket.trainings.remain}}</div>
+  <div class="col-md-2 text-center">{{getRaminingDays(user.ticket.endDate)}}</div>
+  <div class="col-md-4 text-center user-actions">
+    <button class="btn btn-success" ng-disabled="checkTraining(user)" ng-click="addTraining(user)">Check!</button>
+    <button class="btn btn-default" ng-click="showUserModal(user)">Edit</button>
+    <button class="btn btn-danger" ng-click="deleteUser(user._id)">Delete</button>
   </div>
 </div>
 
@@ -39,18 +37,30 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">{{currentUser ? 'Edit user' : 'Create user'}}</h4>
+        <h4 class="modal-title">{{currentUser._id ? 'Edit user' : 'Create user'}}</h4>
       </div>
       <div class="modal-body">
-        <input class="form-control" ng-model="currentUser.firstname" placeholder="Firstname">
-        <input class="form-control" ng-model="currentUser.lastname" placeholder="Lastname">
-        <input class="form-control" ng-model="currentUser.phone" placeholder="Phone">
-        <select class="form-control" ng-options="ticket as ticket.title for ticket in tickets" ng-model="currentTicket"></select>
-        <select class="form-control" ng-options="trainer._id as trainer.lastname for trainer in trainers" ng-model="currentUser.trainer._id"></select>
+        <div class="modal-form clearfix">
+          <div class="col-md-6 form-group">
+            <input class="form-control" ng-model="currentUser.firstname" placeholder="Firstname">
+          </div>
+          <div class="col-md-6 form-group">
+            <input class="form-control" ng-model="currentUser.lastname" placeholder="Lastname">
+          </div>
+          <div class="col-md-12 form-group">
+            <input class="form-control" ng-model="currentUser.phone" placeholder="Phone">
+          </div>
+          <div class="col-md-12 form-group">
+            <select class="form-control" ng-options="ticket as ticket.title for ticket in tickets" ng-model="currentTicket"></select>
+          </div>
+          <div class="col-md-12">
+            <select class="form-control" ng-options="trainer._id as trainer.firstname + ' ' + trainer.lastname for trainer in trainers" ng-model="currentUser.trainer._id"></select>
+          </div>
+        </div> <!-- .modal-form -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" ng-click="updateUser(currentUser, currentTicket)">{{currentUser ? 'Save changes' : 'Create'}}</button>
+        <button type="button" class="btn btn-primary" ng-click="updateUser(currentUser, currentTicket)">{{currentUser._id ? 'Save changes' : 'Create'}}</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

@@ -12,13 +12,19 @@ angular.module('crossfit88App')
     };
 
     $scope.deleteTrainer = id => {
-      $http.post('/api/trainers/delete', {
-        id: id
-      }).then(res => {
-        if (res.status != 200)
-          return console.log(res);
+      swal({
+        title: 'Are you sure?',
+        type: 'warning',
+        showCancelButton: true
+      }, () => {
+        $http.post('/api/trainers/delete', {
+          id: id
+        }).then(res => {
+          if (res.status != 200)
+            return console.log(res);
 
-        $scope.trainers = _.filter($scope.trainers, trainer => trainer._id != id);
+          $scope.trainers = _.filter($scope.trainers, trainer => trainer._id != id);
+        });
       });
     };
 

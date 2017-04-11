@@ -1,0 +1,59 @@
+/* Menu */
+#main-menu a {
+  color: #333;
+  display: inline-block;
+  padding: 10px;
+  float: left;
+  transition: background .2s ease-in-out;
+}
+
+#main-menu a:hover,
+#main-menu a:focus {
+  background: #ccc;
+  text-decoration: none;
+}
+
+#main-menu a.active {
+  background: #ddd;
+}
+
+/* Searchbox */
+.searchbox {
+  margin: 20px 0;
+}
+
+.searchbox .form-control {
+  display: inline-block;
+  width: 250px;
+}
+
+.searchbox .filter {
+  width: auto;
+}
+
+/* Table */
+.table-header {
+  background: #eee;
+  border-bottom: 2px solid #ccc;
+  font-weight: bold;
+  padding: 15px 0;
+  margin-bottom: 10px;
+}
+
+.table-header div {
+  border-right: 1px solid #ccc;
+}
+
+.table-header div:last-child {
+  border: none;
+}
+
+.table-row {
+  border-bottom: 1px solid #eee;
+  padding: 5px 0;
+}
+
+.table-row div {
+  height: 35px;
+  line-height: 35px;
+}

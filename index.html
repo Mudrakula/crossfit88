@@ -5,9 +5,16 @@
   <meta charset="utf-8">
   <base href="/">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/sweetalert/dist/sweetalert.css">
+  <link rel="stylesheet" href="app/app.css">
 </head>
 <body class="container" ng-app="crossfit88App">
   <h1>CROSSFIT88</h1>
+  <nav id="main-menu" class="clearfix">
+    <a ng-class="{active: state.current.name == 'users'}" href="/users">Users</a>
+    <a ng-class="{active: state.current.name == 'tickets'}" href="/tickets">Tickets</a>
+    <a ng-class="{active: state.current.name == 'trainers'}" href="/trainers">Trainers</a>
+  </nav>
   <div ui-view=""></div>
 
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -16,6 +23,7 @@
   <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script src="bower_components/lodash/dist/lodash.min.js"></script>
   <script src="bower_components/moment/min/moment.min.js"></script>
+  <script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
   <script src="app/app.js"></script>
   <script src="app/main/main.js"></script>
   <script src="app/main/main.controller.js"></script>

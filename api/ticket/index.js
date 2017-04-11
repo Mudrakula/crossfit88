@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var Ticket = require('./ticket.model');
 
 router.get('/', (req, res) => {
-  Ticket.find({})
+  Ticket.find()
     .sort('cost')
     .exec((err, data) => {
       res.status(200).json(data);
