@@ -9,6 +9,10 @@
     <option value="">All tickets</option>
     <option ng-repeat="ticket in tickets" value="{{ticket._id}}">{{ticket.title}}</option>
   </select>
+  <select class="form-control filter" ng-model="search.status" ng-change="getUsers()">
+    <option value="1">Active</option>
+    <option value="0">Passive</option>
+  </select>
 </div>
 
 <div class="clearfix table-header">
@@ -21,16 +25,16 @@
 <div class="row table-row" ng-repeat="user in users">
   <div class="col-md-2">{{user.firstname + ' ' + user.lastname}}</div>
   <div class="col-md-2 text-center">{{user.trainer.firstname +' '+ user.trainer.lastname}}</div>
-  <div class="col-md-2 text-center">{{user.trainings.remain}}</div>
+  <div class="col-md-2 text-center" ng-class="{warning: user.trainings.remain < 3}">{{user.trainings.remain}}</div>
   <div class="col-md-2 text-center">{{getRaminingDays(user.trainings.endDate)}}</div>
   <div class="col-md-4 text-center user-actions">
-    <button class="btn btn-success" ng-disabled="checkTraining(user)" ng-click="addTraining(user)">Check!</button>
+    <button class="btn btn-success" ng-if="user.trainings.remain" ng-disabled="checkTraining(user)" ng-click="addTraining(user)">Check!</button>
     <button class="btn btn-default" ng-click="showUserModal(user)">Edit</button>
     <button class="btn btn-danger" ng-click="deleteUser(user._id)">Delete</button>
   </div>
 </div>
 
-<div id="pagination" class="clearfix">
+<div id="pagination" class="clearfix" ng-if="pagesCount > 1">
   <button class="btn btn-default" ng-disabled="search.page < 1" ng-click="gotoPage(search.page - 1)">&larr;</button>
   <button class="btn btn-default pull-right" ng-disabled="search.page > pagesCount - 2" ng-click="gotoPage(search.page + 1)">&rarr;</button>
 </div>
@@ -54,7 +58,7 @@
             <input class="form-control" ng-model="currentUser.phone" placeholder="Phone">
           </div>
           <div class="col-md-12 form-group">
-            <select class="form-control" ng-options="ticket._id as ticket.title for ticket in tickets" ng-model="currentUser.ticket"></select>
+            <select class="form-control" ng-disabled="currentUser.status" ng-options="ticket._id as ticket.title for ticket in tickets" ng-model="currentUser.ticket"></select>
           </div>
           <div class="col-md-12">
             <select class="form-control" ng-options="trainer._id as trainer.firstname + ' ' + trainer.lastname for trainer in trainers" ng-model="currentUser.trainer"></select>

@@ -9,10 +9,11 @@ let User = new Schema({
   birthDate: Number,
   trainer: {type: Schema.Types.ObjectId, ref: 'Trainer'},
   ticket: {type: Schema.Types.ObjectId, ref: 'Ticket'},
+  status: Number,
   trainings: {
     startDate: Number,
     endDate: Number,
-    ramain: Number,
+    remain: Number,
     used: [Number]
   }
 });

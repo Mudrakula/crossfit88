@@ -9,12 +9,16 @@ angular.module('crossfit88App')
     $scope.pagesCount = 1;
     $scope.search = {
       query: '',
+      status: '1',
       trainer: '',
       ticket: '',
-      limit: 5,
+      limit: 10,
       page: 0
     };
-    $scope.getUsers = () => {
+    $scope.getUsers = keepPage => {
+      if (! keepPage)
+        $scope.search.page = 0;
+
       let queryString = _.reduce($scope.search, (result, value, key) => result + key + '=' + value + '&', '?');
       $http.get('/api/users'+queryString).then(res => {
         $scope.users = res.data.users;
@@ -55,7 +59,7 @@ angular.module('crossfit88App')
       if (user) {
         $scope.currentUser = _.assign({}, user, {
           trainer: user.trainer._id,
-          ticket: user.ticket
+          ticket: user.ticket._id
         });
       } else {
         $scope.currentUser = {
@@ -67,6 +71,11 @@ angular.module('crossfit88App')
     };
 
     $scope.updateUser = (user) => {
+      if (! user.trainings || ! user.trainings.remain)
+        user.trainings = {
+          remain: _.find($scope.tickets, ticket => ticket._id == user.ticket).trainingsCount
+        };
+
       $http.post('/api/users/update', user).then(res => {
         if (res.status != 200)
           return console.log(res);
@@ -88,17 +97,23 @@ angular.module('crossfit88App')
     };
 
     $scope.checkTraining = user => {
-      return ! _.some(user.trainings, date => moment().isSame(date, 'day'));
+      return _.some(user.trainings.used, date => moment().isSame(date, 'day'));
     };
 
     $scope.addTraining = inUser => {
       let user = _.clone(inUser)
       if (! user.trainings.startDate) {
+        user.status = 1;
         user.trainings.startDate = moment().format('x');
-        user.trainings.endDate = moment().add(30, 'd').format('x');
+        user.trainings.endDate = moment().add(user.ticket.daysCount, 'd').endOf('date').format('x');
       }
       user.trainings.remain--;
       user.trainings.used.push(moment().format('x'));
+
+      if (! user.trainings.remain) {
+        user.status = 0;
+        user.trainings = {};
+      }
 
       $http.post('/api/users/update', user).then(res => {
         if (res.status != 200)
@@ -107,14 +122,26 @@ angular.module('crossfit88App')
         let index = _.findIndex($scope.users, {_id: user._id});
         $scope.users.splice(index, 1, res.data);
       });
+
+      let trainer = _.clone(inUser.trainer);
+      trainer.trainings.push({
+        user: inUser._id,
+        date: moment().format('x')
+      });
+      $http.post('/api/trainers/update', trainer).then(res => console.log(res));
     };
 
     $scope.gotoPage = page => {
       $scope.search.page = page;
-      $scope.getUsers();
+      $scope.getUsers(true);
     };
 
-    $scope.getUsers();
+    $scope.checkTickets = () => {
+      $http.get('/api/users/check').then(res => $scope.getUsers());
+    };
+
+    // $scope.getUsers();
     $scope.getTickets();
     $scope.getTrainers();
+    $scope.checkTickets();
   });

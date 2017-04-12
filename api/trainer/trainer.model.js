@@ -7,6 +7,10 @@ let Trainer = new Schema({
   lastname: String,
   phone: String,
   birthDate: Number,
+  trainings: [{
+    user: {type: Schema.Types.ObjectId, ref: 'User'},
+    date: Number
+  }]
 });
 
 module.exports = mongoose.model('Trainer', Trainer);

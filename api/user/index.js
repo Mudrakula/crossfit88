@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var User = require('./user.model');
 
 router.get('/', (req, res) => {
+  let sortMode = 1;
   let searchObj = {$or: [
     {firstname: new RegExp(req.query.query, 'i')},
     {lastname: new RegExp(req.query.query, 'i')}
@@ -17,18 +18,23 @@ router.get('/', (req, res) => {
   if (req.query.trainer)
     searchObj['trainer'] = req.query.trainer;
 
+  if (req.query.status) {
+    searchObj['status'] = +req.query.status;
+    sortMode = +req.query.status > 0 ? 1 : -1;
+  }
+
   let page = req.query.page || 0;
   let limit = +req.query.limit || 5;
   User.find(searchObj)
     .sort({
-      'trainer': 1,
-      'trainings.remain': 1,
-      'trainings.endDate': 1
+      'trainings.endDate': 1,
+      'trainings.remain': sortMode,
+      'trainer': 1
     })
     .skip(page * limit)
     .limit(limit)
     .populate('trainer')
-    // .populate('ticket')
+    .populate('ticket')
     .exec((err, data) => {
       User.find(searchObj)
         .count()
@@ -42,7 +48,7 @@ router.post('/update', (req, res) => {
   req.body._id = req.body._id || new mongoose.mongo.ObjectID();
   User.findOneAndUpdate({_id: req.body._id}, req.body, {new: true, upsert: true})
     .populate('trainer')
-    // .populate('ticket')
+    .populate('ticket')
     .exec((err, data) => {
       if (err)
         return console.log(err);
@@ -57,6 +63,21 @@ router.post('/delete', (req, res) => {
       return console.log(err);
 
     res.status(200).send();
+  });
+});
+
+router.get('/check', (req, res) => {
+  User.update({
+    status: 1,
+    'trainings.endDate': {$lt: + new Date()}
+  }, {
+    status: 0,
+    trainings: {}
+  }, {}, (err, data) => {
+    if (err)
+      return console.log(err);
+
+    res.status(200).send(data);
   });
 });
 
