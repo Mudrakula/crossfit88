@@ -34,7 +34,6 @@ angular.module('crossfit88App')
     };
 
     $scope.updateTicket = ticket => {
-      ticket.trainings.remain = ticket.trainings.total;
       $http.post('/api/tickets/update', ticket).then(res => {
         if (res.status != 200)
           return console.log(res);

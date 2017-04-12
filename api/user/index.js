@@ -12,19 +12,29 @@ router.get('/', (req, res) => {
   ]};
 
   if (req.query.ticket)
-    searchObj['ticket._id'] = req.query.ticket;
+    searchObj['ticket'] = req.query.ticket;
 
   if (req.query.trainer)
     searchObj['trainer'] = req.query.trainer;
+
+  let page = req.query.page || 0;
+  let limit = +req.query.limit || 5;
   User.find(searchObj)
     .sort({
       'trainer': 1,
-      'ticket.trainings.remain': 1,
-      'ticket.endDate': 1
+      'trainings.remain': 1,
+      'trainings.endDate': 1
     })
+    .skip(page * limit)
+    .limit(limit)
     .populate('trainer')
+    // .populate('ticket')
     .exec((err, data) => {
-      res.status(200).json(data);
+      User.find(searchObj)
+        .count()
+        .exec((err, count) => {
+          res.status(200).json({users: data, count: count});
+        });
     });
 });
 
@@ -32,6 +42,7 @@ router.post('/update', (req, res) => {
   req.body._id = req.body._id || new mongoose.mongo.ObjectID();
   User.findOneAndUpdate({_id: req.body._id}, req.body, {new: true, upsert: true})
     .populate('trainer')
+    // .populate('ticket')
     .exec((err, data) => {
       if (err)
         return console.log(err);

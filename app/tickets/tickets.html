@@ -2,15 +2,15 @@
 <h2>Tickets</h2>
 <div class="row table-header">
   <div class="col-md-4 text-center">Title</div>
-  <div class="col-md-2 text-center">Trainings count</div>
   <div class="col-md-2 text-center">Days count</div>
+  <div class="col-md-2 text-center">Trainings count</div>
   <div class="col-md-2 text-center">Cost</div>
   <div class="col-md-2 text-center">Actions</div>
 </div>
 <div class="row table-row" ng-repeat="ticket in tickets">
   <div class="col-md-4">{{ticket.title}}</div>
   <div class="col-md-2 text-center">{{ticket.daysCount}}</div>
-  <div class="col-md-2 text-center">{{ticket.trainings.total}}</div>
+  <div class="col-md-2 text-center">{{ticket.trainingsCount}}</div>
   <div class="col-md-2 text-center">{{ticket.cost}}</div>
   <div class="col-md-2 text-center ticket-actions">
     <span class="btn btn-default" ng-click="showTicketModal(ticket)">Edit</span>
@@ -34,7 +34,7 @@
             <input class="form-control" ng-model="currentTicket.daysCount" placeholder="Days">
           </div>
           <div class="col-md-3">
-            <input class="form-control" ng-model="currentTicket.trainings.total" placeholder="Trainings">
+            <input class="form-control" ng-model="currentTicket.trainingsCount" placeholder="Trainings">
           </div>
           <div class="col-md-3">
             <input class="form-control" ng-model="currentTicket.cost" placeholder="Cost">

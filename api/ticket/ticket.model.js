@@ -7,13 +7,7 @@ let Ticket = new Schema({
   status: Number,
   cost: Number,
   daysCount: Number,
-  startDate: Number,
-  endDate: Number,
-  trainings: {
-    total: Number,
-    remain: Number,
-    used: [Number]
-  }
+  trainingsCount: Number
 });
 
 module.exports = mongoose.model('Ticket', Ticket);

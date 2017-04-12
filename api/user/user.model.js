@@ -8,17 +8,12 @@ let User = new Schema({
   phone: String,
   birthDate: Number,
   trainer: {type: Schema.Types.ObjectId, ref: 'Trainer'},
-  ticket: {
-    _id: String,
-    title: String,
-    status: Number,
-    cost: Number,
+  ticket: {type: Schema.Types.ObjectId, ref: 'Ticket'},
+  trainings: {
     startDate: Number,
     endDate: Number,
-    trainings: {
-      remain: Number,
-      used: [Number]
-    }
+    ramain: Number,
+    used: [Number]
   }
 });
 
