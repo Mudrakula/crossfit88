@@ -9,7 +9,7 @@ let User = new Schema({
   birthDate: Number,
   trainer: {type: Schema.Types.ObjectId, ref: 'Trainer'},
   ticket: {type: Schema.Types.ObjectId, ref: 'Ticket'},
-  status: Number,
+  status: {type: Number, default: 0},
   trainings: {
     startDate: Number,
     endDate: Number,

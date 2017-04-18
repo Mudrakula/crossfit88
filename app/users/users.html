@@ -10,8 +10,9 @@
     <option ng-repeat="ticket in tickets" value="{{ticket._id}}">{{ticket.title}}</option>
   </select>
   <select class="form-control filter" ng-model="search.status" ng-change="getUsers()">
+    <option value="">Any</option>
     <option value="1">Active</option>
-    <option value="0">Passive</option>
+    <option value="0">Inactive</option>
   </select>
 </div>
 

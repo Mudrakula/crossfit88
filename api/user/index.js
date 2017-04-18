@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var User = require('./user.model');
 
 router.get('/', (req, res) => {
-  let sortMode = 1;
+  let sortMode = -1;
   let searchObj = {$or: [
     {firstname: new RegExp(req.query.query, 'i')},
     {lastname: new RegExp(req.query.query, 'i')}
@@ -20,15 +20,15 @@ router.get('/', (req, res) => {
 
   if (req.query.status) {
     searchObj['status'] = +req.query.status;
-    sortMode = +req.query.status > 0 ? 1 : -1;
+    sortMode = 1;
   }
 
   let page = req.query.page || 0;
   let limit = +req.query.limit || 5;
   User.find(searchObj)
     .sort({
-      'trainings.endDate': 1,
-      'trainings.remain': sortMode,
+      'trainings.endDate': sortMode,
+      'trainings.remain': 1,
       'trainer': 1
     })
     .skip(page * limit)

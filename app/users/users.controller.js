@@ -21,6 +21,7 @@ angular.module('crossfit88App')
 
       let queryString = _.reduce($scope.search, (result, value, key) => result + key + '=' + value + '&', '?');
       $http.get('/api/users'+queryString).then(res => {
+        console.log(res.data);
         $scope.users = res.data.users;
         $scope.pagesCount = Math.ceil(res.data.count / $scope.search.limit);
       });
