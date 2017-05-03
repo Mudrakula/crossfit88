@@ -67,3 +67,9 @@
 #pagination {
   margin: 20px 0;
 }
+
+/* Auth */
+.auth-form {
+  width: 400px;
+  margin: 0 auto;
+}

@@ -8,15 +8,21 @@ var Admin = require('./admin.model');
 router.post('/login', (req, res) => {
   Admin.findOne({
     username: req.body.username
-  }, (err, admin) {
+  }, (err, admin) => {
     if (err)
       return console.log(err);
 
+    if (! admin)
+      return res.status(200).json({status: 'fail'});
+
     let hash = crypto.createHash('sha256').update(req.body.password).digest('hex');
     if (admin.password === hash)
-      res.status(200).json(admin);
+      return res.status(200).json({
+        status: 'success',
+        admin: admin
+      });
     else
-      res.status(200).json({'status': 'fail'});
+      return res.status(200).json({status: 'fail'});
   });
 });
 
@@ -29,3 +35,5 @@ router.post('/registration', (req, res) => {
     res.status(200).json(admin);
   });
 });
+
+module.exports = router;

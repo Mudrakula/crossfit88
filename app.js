@@ -28,6 +28,7 @@ app.use('/app', express.static(path.join(__dirname, 'app')));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/bower_components', express.static(path.join(__dirname, 'bower_components')));
 
+app.use('/api/auth', require('./api/auth'));
 app.use('/api/users', require('./api/user'));
 app.use('/api/trainers', require('./api/trainer'));
 app.use('/api/tickets', require('./api/ticket'));

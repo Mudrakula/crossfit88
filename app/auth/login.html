@@ -1,5 +1,11 @@
-<div>
-  <input class="form-control" type="text" ng-model="admin.username">
-  <input class="form-control" type="password" ng-model="admin.password">
-  <button class="btn btn-primary" ng-click="login(admin)">Login</button>
+<div class="auth-form">
+  <h2 class="text-center">Sign in</h2>
+  <div class="form-group">
+    <input class="form-control" placeholder="Username" type="text" ng-model="admin.username">
+  </div>
+  <div class="form-group">
+    <input class="form-control" placeholder="Password" type="password" ng-model="admin.password">
+  </div>
+  <span class="error-message">{{admin.error}}</span>
+  <button class="btn btn-primary pull-right" ng-click="login(admin)">Login</button>
 </div>

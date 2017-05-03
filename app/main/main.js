@@ -6,6 +6,7 @@ angular.module('crossfit88App')
       .state('main', {
         url: '/',
         templateUrl: 'app/main/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        allowGuests: true
       });
   });
