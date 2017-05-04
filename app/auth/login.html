@@ -1,4 +1,4 @@
-<div class="auth-form">
+<form class="auth-form">
   <h2 class="text-center">Sign in</h2>
   <div class="form-group">
     <input class="form-control" placeholder="Username" type="text" ng-model="admin.username">
@@ -7,5 +7,5 @@
     <input class="form-control" placeholder="Password" type="password" ng-model="admin.password">
   </div>
   <span class="error-message">{{admin.error}}</span>
-  <button class="btn btn-primary pull-right" ng-click="login(admin)">Login</button>
-</div>
+  <input type="submit" value="Login" class="btn btn-primary pull-right" ng-click="login(admin)">
+</form>

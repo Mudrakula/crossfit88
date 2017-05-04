@@ -16,7 +16,8 @@ angular.module('crossfit88App')
       })
       .state('logout', {
         url: '/logout',
-        controller: function($cookies, $state, $rootScope) {
+        controller: function($cookies, $state, $rootScope, Authentication) {
+          Authentication.user = {};
           $cookies.remove('user');
           $rootScope.user = {};
           $state.reload();
