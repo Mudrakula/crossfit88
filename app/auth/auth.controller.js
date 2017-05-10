@@ -10,10 +10,15 @@ angular.module('crossfit88App')
           $state.go('users');
       }, err => {
         $scope.admin.error = err;
-      }
-    )};
+      });
+    };
 
     $scope.registration = admin => {
-      return $state.go('users');
+      Authentication.registration(admin).then(res => {
+        if (res)
+          $state.go('users');
+      }, err => {
+        $scope.admin.error = err;
+      });
     };
-  })
+  });

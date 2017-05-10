@@ -1,3 +1,14 @@
+h1 {
+  margin-bottom: 40px;
+}
+
+h1 a,
+h1 a:hover,
+h1 a:focus {
+  text-decoration: none;
+  color: #333;
+}
+
 /* Menu */
 #main-menu a {
   color: #333;
@@ -71,5 +82,9 @@
 /* Auth */
 .auth-form {
   width: 400px;
-  margin: 0 auto;
+  margin: 150px auto;
+}
+
+.auth-form h2 {
+  margin-bottom: 20px;
 }

@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 let Admin = new Schema({
-  username: String,
+  username: {type: String, index:true, unique: true, dropDups: true},
   password: String
 });
 

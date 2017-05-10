@@ -12,18 +12,17 @@ angular.module('crossfit88App', [
 
     $locationProvider.html5Mode(true);
   })
-  .run(function($rootScope, $state, $cookies, Authentication) {
+  .run(function($rootScope, $state, Authentication) {
     $rootScope.$on('$stateChangeStart', (e, toState) => {
       if (toState.allowGuests === true)
         return true;
 
-      let user = $cookies.getObject('user');
-      $rootScope.user = user;
+      let user = Authentication.getUser();
       if (! user) {
         e.preventDefault();
         $state.go('login');
       }
 
-      Authentication.user = user;
+      $rootScope.user = user;
     });
   });

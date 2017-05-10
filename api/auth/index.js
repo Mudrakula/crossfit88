@@ -32,7 +32,10 @@ router.post('/registration', (req, res) => {
     if (err)
       return console.log(err);
 
-    res.status(200).json(admin);
+    res.status(200).json({
+      status: 'success',
+      admin: admin
+    });
   });
 });
 
