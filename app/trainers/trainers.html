@@ -7,7 +7,7 @@
 </div>
 <div class="row table-row" ng-repeat="trainer in trainers">
   <div class="col-md-3">
-    {{trainer.firstname + ' ' + trainer.lastname}}
+    <a ui-sref="trainers.trainer({id: trainer._id})">{{trainer.firstname + ' ' + trainer.lastname}}</a>
   </div>
   <div class="col-md-2  text-center">{{trainer.phone}}</div>
   <div class="col-md-3  text-center trainer-actions">

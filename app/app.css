@@ -24,6 +24,12 @@ h1 a:focus {
   text-decoration: none;
 }
 
+#main-menu .pull-right:hover,
+#main-menu .pull-right:focus {
+  background: none;
+  text-decoration: underline;
+}
+
 #main-menu a.active {
   background: #ddd;
 }

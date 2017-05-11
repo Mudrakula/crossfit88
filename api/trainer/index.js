@@ -6,9 +6,11 @@ var mongoose = require('mongoose');
 var Trainer = require('./trainer.model');
 
 router.get('/', (req, res) => {
-  Trainer.find({}, (err, data) => {
-    res.status(200).json(data);
-  });
+  Trainer.find()
+    .populate('trainings.user')
+    .exec((err, data) => {
+      res.status(200).json(data);
+    });
 });
 
 router.post('/update', (req, res) => {

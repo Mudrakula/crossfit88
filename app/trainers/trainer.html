@@ -1,0 +1,5 @@
+<h2>{{trainer.firstname + ' ' + trainer.lastname}}</h2>
+<div ng-repeat="training in todayTrainings">
+  <span class="">{{training.date | date : 'HH:mm'}}</span>
+  <span class="">{{training.user.firstname + ' ' + training.user.lastname}}</span>
+</div>
