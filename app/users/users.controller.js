@@ -15,6 +15,7 @@ angular.module('crossfit88App')
       limit: 10,
       page: 0
     };
+
     $scope.getUsers = keepPage => {
       if (! keepPage)
         $scope.search.page = 0;
@@ -129,6 +130,35 @@ angular.module('crossfit88App')
         date: moment().format('x')
       });
       $http.post('/api/trainers/update', trainer).then(res => console.log(res));
+    };
+
+    $scope.freeze = user => {
+      swal({
+        title: 'Are you sure?',
+        type: 'warning',
+        showCancelButton: true
+      }, () => {
+        user.remainDays = moment(user.trainings.endDate).diff(moment(), 'days');
+        user.status = -1;
+        $http.post('/api/users/update', user).then(res => {
+          if (res.status != 200)
+            return console.log(res);
+
+          $scope.users = _.filter($scope.users, userTmp => userTmp._id != user._id);
+        });
+      });
+    };
+
+    $scope.defrost = user => {
+      user.trainings.endDate = moment().add(user.remainDays, 'd').endOf('date').format('x');
+      user.remainDays = null;
+      user.status = 1;
+      $http.post('/api/users/update', user).then(res => {
+        if (res.status != 200)
+          return console.log(res);
+
+        $scope.users = _.filter($scope.users, userTmp => userTmp._id != user._id);
+      });
     };
 
     $scope.gotoPage = page => {

@@ -10,9 +10,10 @@
     <option ng-repeat="ticket in tickets" value="{{ticket._id}}">{{ticket.title}}</option>
   </select>
   <select class="form-control filter" ng-model="search.status" ng-change="getUsers()">
-    <option value="">Any</option>
     <option value="1">Active</option>
     <option value="0">Inactive</option>
+    <option value="-1">Frozen</option>
+    <option value="">Any</option>
   </select>
 </div>
 
@@ -29,8 +30,10 @@
   <div class="col-md-2 text-center" ng-class="{warning: user.trainings.remain < 3}">{{user.trainings.remain}}</div>
   <div class="col-md-2 text-center">{{getRaminingDays(user.trainings.endDate)}}</div>
   <div class="col-md-4 text-center user-actions">
-    <button class="btn btn-success" ng-if="user.trainings.remain" ng-disabled="checkTraining(user)" ng-click="addTraining(user)">Check!</button>
+    <button class="btn btn-success" ng-if="user.trainings.remain && user.status > -1" ng-disabled="checkTraining(user)" ng-click="addTraining(user)">Check!</button>
     <button class="btn btn-default" ng-click="showUserModal(user)">Edit</button>
+    <button class="btn btn-info" ng-if="user.status === 1" ng-click="freeze(user)">Freeze</button>
+    <button class="btn btn-info" ng-if="user.status === -1" ng-click="defrost(user)">Defrost</button>
     <button class="btn btn-danger" ng-click="deleteUser(user._id)">Delete</button>
   </div>
 </div>

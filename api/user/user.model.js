@@ -15,7 +15,8 @@ let User = new Schema({
     endDate: Number,
     remain: Number,
     used: [Number]
-  }
+  },
+  remainDays: Number
 });
 
 module.exports = mongoose.model('User', User);
