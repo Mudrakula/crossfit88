@@ -27,6 +27,11 @@ router.post('/login', (req, res) => {
 });
 
 router.post('/registration', (req, res) => {
+  if (req.body.password !== req.body.passwordConfirm)
+    return res.status(200).json({
+      status: 'fail'
+    });
+
   req.body.password = crypto.createHash('sha256').update(req.body.password).digest('hex');
   Admin.create(req.body, (err, admin) => {
     if (err)

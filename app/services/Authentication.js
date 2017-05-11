@@ -4,7 +4,6 @@ angular.module('crossfit88App')
   .factory('Authentication', ['$http', '$cookies', function($http, $cookies) {
     return {
       user: null,
-      error: '',
       login: credentials => {
         if (this.user && this.user.username)
           return Promise.resolve(this.user);
@@ -16,10 +15,8 @@ angular.module('crossfit88App')
             return Promise.reject('Server error');
           }
 
-          if (res.data.status !== 'success') {
-            this.error = 'Wrong password or username.';
-            return Promise.reject(this.error);
-          }
+          if (res.data.status !== 'success')
+            return Promise.reject('Wrong password or username.');
 
           this.user = {
             username: res.data.admin.username,
@@ -36,6 +33,9 @@ angular.module('crossfit88App')
             console.log(res);
             return Promise.reject('Server error');
           }
+
+          if (res.data.status !== 'success')
+            return Promise.reject('Passwords not match.');
 
           this.user = {
             username: res.data.admin.username,
