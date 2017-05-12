@@ -1,5 +1,22 @@
 <h2>{{trainer.firstname + ' ' + trainer.lastname}}</h2>
-<div ng-repeat="training in todayTrainings">
-  <span class="">{{training.date | date : 'HH:mm'}}</span>
-  <span class="">{{training.user.firstname + ' ' + training.user.lastname}}</span>
+<div class="row">
+  <div class="col-md-8" id="calendar-wrapper">
+    <div id="trainer-calendar">
+      <div class="week-header">
+        <div class="day" ng-repeat="day in weekDays">{{day}}</div>
+      </div>
+      <div class="week" ng-repeat="week in month">
+        <div class="day" ng-class="checkDay(day)" ng-click="changeDay(day)" ng-repeat="day in week">
+          {{day | date : 'dd'}}
+          <div class="trainings-count" ng-if="trainings[day].length">{{trainings[day].length}}</div>
+        </div>
+      </div>
+    </div> <!-- #trainer-calendar -->
+  </div> <!-- #calendar-wrapper -->
+  <div class="col-md-4" id="day-trainings">
+    <div class="training-line" ng-repeat="training in dayTrainings">
+      <span class="training-time">{{training.date | date : 'HH:mm'}}</span>
+      <span class="training-athlete">{{training.user.firstname + ' ' + training.user.lastname}}</span>
+    </div>
+  </div> <!-- #day-trainings -->
 </div>

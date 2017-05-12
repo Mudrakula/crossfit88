@@ -48,11 +48,4 @@ angular.module('crossfit88App')
         angular.element('#trainer-modal').modal('hide');
       });
     };
-  })
-  .controller('TrainerCtrl', function($scope, trainer) {
-    $scope.trainer = trainer;
-    let today = moment().startOf('date').format('x');
-    $scope.todayTrainings = _.filter($scope.trainer.trainings, training => {
-      return training.date > today;
-    });
   });
