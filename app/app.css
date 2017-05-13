@@ -99,6 +99,7 @@ h1 a:focus {
 #trainer-calendar {
   border: 2px solid #ccc;
   width: 704px;
+  position: relative;
 }
 
 .week-header .day {
@@ -146,6 +147,31 @@ h1 a:focus {
   position: absolute;
   bottom: 10px;
   left: 0;
+}
+
+.calendar-arrow {
+  cursor: pointer;
+  font-size: 16px;
+  position: absolute;
+  bottom: -30px;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+#day-trainings h3 {
+  margin: 5px 5px 20px;
+  text-decoration: underline;
+}
+
+#trainings {
+  height: 480px;
+  overflow: auto;
 }
 
 .training-line {
