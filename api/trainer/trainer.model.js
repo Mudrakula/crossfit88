@@ -7,10 +7,7 @@ let Trainer = new Schema({
   lastname: String,
   phone: String,
   birthDate: Number,
-  trainings: [{
-    user: {type: Schema.Types.ObjectId, ref: 'User'},
-    date: Number
-  }]
+  // trainings: [{type: Schema.Types.ObjectId, ref: 'Training'}]
 });
 
 module.exports = mongoose.model('Trainer', Trainer);

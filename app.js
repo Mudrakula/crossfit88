@@ -31,6 +31,7 @@ app.use('/bower_components', express.static(path.join(__dirname, 'bower_componen
 app.use('/api/auth', require('./api/auth'));
 app.use('/api/users', require('./api/user'));
 app.use('/api/trainers', require('./api/trainer'));
+app.use('/api/trainings', require('./api/training'));
 app.use('/api/tickets', require('./api/ticket'));
 
 app.route('/*')

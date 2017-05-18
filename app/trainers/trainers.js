@@ -26,6 +26,11 @@ angular.module('crossfit88App')
         resolve: {
           trainer: (trainers, $stateParams) => {
             return _.find(trainers, {_id: $stateParams.id});
+          },
+          trainings: ($http, $stateParams) => {
+            return $http.get('/api/trainings/'+$stateParams.id).then(response => {
+              return response.data;
+            });
           }
         }
       });

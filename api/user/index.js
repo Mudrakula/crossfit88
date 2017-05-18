@@ -48,6 +48,7 @@ router.post('/update', (req, res) => {
   req.body._id = req.body._id || new mongoose.mongo.ObjectID();
   User.findOneAndUpdate({_id: req.body._id}, req.body, {new: true, upsert: true})
     .populate('trainer')
+    // .populate('trainings')
     .populate('ticket')
     .exec((err, data) => {
       if (err)

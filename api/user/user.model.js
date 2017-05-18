@@ -14,7 +14,7 @@ let User = new Schema({
     startDate: Number,
     endDate: Number,
     remain: Number,
-    used: [Number]
+    used: [{type: Schema.Types.ObjectId, ref: 'Training'}]
   },
   remainDays: Number
 });

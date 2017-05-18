@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('crossfit88App')
-  .controller('TrainerCtrl', function($scope, trainer) {
+  .controller('TrainerCtrl', function($scope, $http, trainer, trainings) {
     $scope.trainer = trainer;
+    console.log(trainer);
     $scope.weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     $scope.trainings = {};
     $scope.selectedDay = moment();
@@ -11,7 +12,7 @@ angular.module('crossfit88App')
     $scope.monthLabels = {};
 
     $scope.getTrainings = date => {
-      return _.filter($scope.trainer.trainings, training => moment(+training.date).isSame(moment(+date), 'day'));
+      return _.filter(trainings, training => moment(+training.date).isSame(moment(+date), 'day'));
     };
 
     $scope.getMonth = date => {

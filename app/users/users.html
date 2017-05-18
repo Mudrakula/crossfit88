@@ -26,7 +26,9 @@
 </div>
 <div class="row table-row" ng-repeat="user in users">
   <div class="col-md-2">{{user.firstname + ' ' + user.lastname}}</div>
-  <div class="col-md-2 text-center">{{user.trainer.firstname +' '+ user.trainer.lastname}}</div>
+  <div class="col-md-2 text-center">
+    <a ui-sref="trainers.trainer({id: user.trainer._id})">{{user.trainer.firstname +' '+ user.trainer.lastname}}</a>
+  </div>
   <div class="col-md-2 text-center" ng-class="{warning: user.trainings.remain < 3}">{{user.trainings.remain}}</div>
   <div class="col-md-2 text-center">{{getRaminingDays(user.trainings.endDate)}}</div>
   <div class="col-md-4 text-center user-actions">
