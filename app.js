@@ -33,6 +33,8 @@ app.use('/api/users', require('./api/user'));
 app.use('/api/trainers', require('./api/trainer'));
 app.use('/api/trainings', require('./api/training'));
 app.use('/api/tickets', require('./api/ticket'));
+app.use('/api/products', require('./api/product'));
+app.use('/api/sales', require('./api/sale'));
 
 app.route('/*')
   .get(function(req, res) {

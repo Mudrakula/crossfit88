@@ -33,6 +33,7 @@
   <div class="col-md-2 text-center">{{getRaminingDays(user.trainings.endDate)}}</div>
   <div class="col-md-4 text-center user-actions">
     <button class="btn btn-success" ng-if="user.trainings.remain && user.status > -1" ng-disabled="checkTraining(user)" ng-click="addTraining(user)">Check!</button>
+    <button class="btn btn-success" ng-if="!user.ticket" ng-click="showTicketModal(user)">Buy ticket!</button>
     <button class="btn btn-default" ng-click="showUserModal(user)">Edit</button>
     <button class="btn btn-info" ng-if="user.status === 1" ng-click="freeze(user)">Freeze</button>
     <button class="btn btn-info" ng-if="user.status === -1" ng-click="defrost(user)">Defrost</button>
@@ -74,6 +75,28 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-primary" ng-click="updateUser(currentUser)">{{currentUser._id ? 'Save changes' : 'Create'}}</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="ticket-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Buy ticket</h4>
+      </div>
+      <div class="modal-body">
+        <div class="modal-form clearfix">
+          <div class="col-md-12 form-group">
+            <select class="form-control" ng-options="ticket._id as ticket.title for ticket in tickets" ng-model="currentUser.ticket"></select>
+          </div>
+        </div> <!-- .modal-form -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="buyTicket(currentUser)">Buy!</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

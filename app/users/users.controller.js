@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('crossfit88App')
-  .controller('UsersCtrl', function($scope, $http, $location, Authentication) {
+  .controller('UsersCtrl', function($scope, $http) {
     $scope.users = [];
     $scope.tickets = [];
     $scope.trainers = [];
@@ -60,7 +60,7 @@ angular.module('crossfit88App')
       if (user) {
         $scope.currentUser = _.assign({}, user, {
           trainer: user.trainer._id,
-          ticket: user.ticket._id
+          ticket: user.ticket ? user.ticket._id : null
         });
       } else {
         $scope.currentUser = {
@@ -72,7 +72,7 @@ angular.module('crossfit88App')
     };
 
     $scope.updateUser = (user) => {
-      if (! user.trainings || ! user.trainings.remain)
+      if (user.ticket && (! user.trainings || ! user.trainings.remain))
         user.trainings = {
           remain: _.find($scope.tickets, ticket => ticket._id == user.ticket).trainingsCount
         };
@@ -90,6 +90,7 @@ angular.module('crossfit88App')
 
         user = null;
         angular.element('#user-modal').modal('hide');
+        angular.element('#ticket-modal').modal('hide');
       });
     };
 
@@ -122,9 +123,10 @@ angular.module('crossfit88App')
         if (! user.trainings.remain) {
           user.status = 0;
           user.trainings = {};
+          user.ticket = null;
         }
 
-        $http.post('/api/users/update', user).then(res => {console.log(res);
+        $http.post('/api/users/update', user).then(res => {
           if (res.status != 200)
             return console.log(res);
 
@@ -170,6 +172,27 @@ angular.module('crossfit88App')
 
     $scope.checkTickets = () => {
       $http.get('/api/users/check').then(res => $scope.getUsers());
+    };
+
+    $scope.showTicketModal = user => {
+      $scope.currentUser = _.clone(user);
+      angular.element('#ticket-modal').modal();
+    };
+
+    $scope.buyTicket = user => {
+      let ticket = _.find($scope.tickets, ticket => ticket._id == user.ticket);
+      $http.post('/api/sales/create', {
+        type: 'ticket',
+        title: ticket.title,
+        cost: ticket.cost,
+        purchaseCount: 0,
+        date: moment().format('x')
+      }).then(res => {
+        if (res.status != 200)
+          return console.log(res);
+
+        $scope.updateUser(user);
+      });
     };
 
     $scope.getTickets();

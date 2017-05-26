@@ -96,7 +96,7 @@ h1 a:focus {
 }
 
 /* Calendar */
-#trainer-calendar {
+#calendar {
   border: 2px solid #ccc;
   width: 704px;
   position: relative;
@@ -136,7 +136,7 @@ h1 a:focus {
   cursor: pointer;
 }
 
-.trainings-count {
+.day-value {
   background: #bbb;
   color: #fff;
   font-size: 16px;
@@ -164,17 +164,17 @@ h1 a:focus {
   right: 10px;
 }
 
-#day-trainings h3 {
+#day-details h3 {
   margin: 5px 5px 20px;
   text-decoration: underline;
 }
 
-#trainings {
+#info {
   height: 480px;
   overflow: auto;
 }
 
-.training-line {
+.info-line {
   font-size: 18px;
   margin-bottom: 5px;
 }
@@ -182,4 +182,40 @@ h1 a:focus {
 .training-time {
   display: inline-block;
   margin-right: 10px;
+}
+
+/* Products */
+.product-sale-wrapper {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.product-sale-count {
+  display: inline-block;
+  width: 40px;
+  padding: 6px;
+  position: relative;
+  top: 1px;
+}
+
+/* Sales */
+.sale-time {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.sale-title {
+  display: inline-block;
+  width: 100px;
+  margin-right: 10px;
+}
+
+.sale-count {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.sale-total {
+  display: inline-block;
+  margin-left: 10px;
 }

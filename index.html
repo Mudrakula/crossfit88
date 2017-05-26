@@ -1,7 +1,7 @@
 <!DOCTYPE>
 <html>
 <head>
-  <title>Crossfit 88</title>
+  <title>Cro77fit</title>
   <meta charset="utf-8">
   <base href="/">
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -9,11 +9,13 @@
   <link rel="stylesheet" href="app/app.css">
 </head>
 <body class="container" ng-app="crossfit88App">
-  <h1><a ui-sref="users">CROSSFIT88</a></h1>
+  <h1><a ui-sref="users">CRO77FIT</a></h1>
   <nav ng-if="user" ng-cloak id="main-menu" class="clearfix">
     <a ui-sref-active="active" ui-sref="users">Users</a>
     <a ui-sref-active="active" ui-sref="tickets">Tickets</a>
     <a ui-sref-active="active" ui-sref="trainers">Trainers</a>
+    <a ui-sref-active="active" ui-sref="products">Products</a>
+    <a ui-sref-active="active" ui-sref="sales">Sales</a>
     <a class="pull-right" ui-sref="logout">Logout</a>
     <a class="pull-right" ui-sref="registration">New admin</a>
   </nav>
@@ -39,5 +41,9 @@
   <script src="app/trainers/trainers.js"></script>
   <script src="app/trainers/trainers.controller.js"></script>
   <script src="app/trainers/trainer.controller.js"></script>
+  <script src="app/products/products.controller.js"></script>
+  <script src="app/products/products.js"></script>
+  <script src="app/sales/sales.controller.js"></script>
+  <script src="app/sales/sales.js"></script>
 </body>
 </html>

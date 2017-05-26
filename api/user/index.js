@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
   }
 
   let page = req.query.page || 0;
-  let limit = +req.query.limit || 5;
+  let limit = +req.query.limit || 10;
   User.find(searchObj)
     .sort({
       'trainings.endDate': sortMode,
@@ -45,7 +45,11 @@ router.get('/', (req, res) => {
 });
 
 router.post('/update', (req, res) => {
-  req.body._id = req.body._id || new mongoose.mongo.ObjectID();
+  if (! req.body._id) {
+    req.body._id = new mongoose.mongo.ObjectID();
+    req.body.status = 0;
+  }
+
   User.findOneAndUpdate({_id: req.body._id}, req.body, {new: true, upsert: true})
     .populate('trainer')
     // .populate('trainings')

@@ -1,4 +1,4 @@
-<h2>{{trainer.firstname + ' ' + trainer.lastname}}</h2>
+<h2>Sales</h2>
 <div class="row">
   <div class="col-md-8" id="calendar-wrapper">
     <div id="calendar">
@@ -8,7 +8,7 @@
       <div class="week" ng-repeat="week in month">
         <div class="day" ng-class="checkDay(day)" ng-click="changeDay(day)" ng-repeat="day in week">
           {{day | date : 'dd'}}
-          <div class="day-value" ng-if="trainings[day].length">{{trainings[day].length}}</div>
+          <div class="day-value" ng-if="sales[day].length">{{getTotal(sales[day])}}</div>
         </div>
       </div>
       <span class="calendar-arrow left-arrow" ng-click="changeMonth(-1)">{{monthLabels.prev}}</span>
@@ -18,9 +18,11 @@
   <div class="col-md-4" id="day-details">
     <h3>{{currentMonth.format('MMMM')}}</h3>
     <div id="info">
-      <div class="info-line" ng-repeat="training in dayTrainings">
-        <span class="training-time">{{training.date | date : 'HH:mm'}}</span>
-        <span class="training-athlete">{{training.client.firstname + ' ' + training.client.lastname}}</span>
+      <div class="info-line" ng-repeat="sale in daySales">
+        <span class="sale-time">{{sale.date | date : 'HH:mm'}}</span>
+        <span class="sale-title">{{sale.title}}</span>&#10005;
+        <span class="sale-count">{{sale.count}}</span>=
+        <span class="sale-total">{{sale.cost * sale.count}}</span>
       </div>
     </div> <!-- #info -->
   </div> <!-- #day-details -->
