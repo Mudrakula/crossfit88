@@ -88,6 +88,9 @@ angular.module('crossfit88App')
           timer: 1000,
           showConfirmButton: false
         });
+
+        product.count -= product.saleCount;
+        $scope.updateProduct(product);
         product.saleCount = 1;
       });
     }
