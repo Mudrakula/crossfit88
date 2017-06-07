@@ -12,12 +12,12 @@
   <h1><a ui-sref="users">CRO77FIT</a></h1>
   <nav ng-if="user" ng-cloak id="main-menu" class="clearfix">
     <a ui-sref-active="active" ui-sref="users">Users</a>
-    <a ui-sref-active="active" ui-sref="tickets">Tickets</a>
-    <a ui-sref-active="active" ui-sref="trainers">Trainers</a>
+    <a ui-sref-active="active" ng-if="user.role === 'admin'" ui-sref="tickets">Tickets</a>
+    <a ui-sref-active="active" ng-if="user.role === 'admin'" ui-sref="trainers">Trainers</a>
     <a ui-sref-active="active" ui-sref="products">Products</a>
-    <a ui-sref-active="active" ui-sref="sales">Sales</a>
+    <a ui-sref-active="active" ng-if="user.role === 'admin'" ui-sref="sales">Sales</a>
     <a class="pull-right" ui-sref="logout">Logout</a>
-    <a class="pull-right" ui-sref="registration">New admin</a>
+    <a class="pull-right" ng-if="user.role === 'admin'" ui-sref="registration">New admin</a>
   </nav>
   <div ui-view=""></div>
 

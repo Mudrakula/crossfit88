@@ -20,6 +20,7 @@ angular.module('crossfit88App')
 
           this.user = {
             username: res.data.admin.username,
+            role: res.data.admin.role,
             id: res.data.admin._id
           };
           $cookies.putObject('user', this.user);
@@ -37,12 +38,7 @@ angular.module('crossfit88App')
           if (res.data.status !== 'success')
             return Promise.reject('Passwords not match.');
 
-          this.user = {
-            username: res.data.admin.username,
-            id: res.data.admin._id
-          };
-          $cookies.putObject('user', this.user);
-          return Promise.resolve(this.user);
+          return Promise.resolve(res.data.admin);
         });
       },
       logout: () => {

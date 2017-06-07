@@ -23,6 +23,11 @@ angular.module('crossfit88App', [
         $state.go('login');
       }
 
+      if (toState.onlyAdmins === true && user.role !== 'admin') {
+        e.preventDefault();
+        $state.go('logout');
+      }
+
       $rootScope.user = user;
     });
   });
