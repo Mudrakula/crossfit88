@@ -23,7 +23,12 @@
         <span class="sale-title">{{sale.title}}</span>&#10005;
         <span class="sale-count">{{sale.count}}</span>=
         <span class="sale-total">{{sale.cost * sale.count}}</span>
+        <span ng-if="sale.type === 'product'">({{sale.purchaseCost * sale.count}})</span>
       </div>
     </div> <!-- #info -->
+    <div id="results">
+      <span class="results-item"><strong>Total:</strong> {{getTotal(daySales)}}</span>
+      <span class="results-item"><strong>Net profit:</strong> {{getNetProfit(daySales)}}</span>
+    </div>
   </div> <!-- #day-details -->
 </div>

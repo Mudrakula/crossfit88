@@ -6,6 +6,6 @@ angular.module('crossfit88App')
       .state('users', {
         url: '/',
         templateUrl: 'app/users/users.html',
-        controller: 'UsersCtrl'
+        controller: 'UsersCtrl',
       });
   });

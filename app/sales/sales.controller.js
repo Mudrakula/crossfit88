@@ -68,4 +68,9 @@ angular.module('crossfit88App')
     $scope.getTotal = sales => {
       return _.reduce(sales, (result, sale) => result + sale.cost * sale.count, 0);
     };
+
+    $scope.getNetProfit = sales => {
+      console.log(sales);
+      return _.reduce(sales, (result, sale) => result + (sale.cost - sale.purchaseCost) * sale.count, 0);
+    };
   });

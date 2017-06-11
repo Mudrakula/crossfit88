@@ -76,7 +76,7 @@ angular.module('crossfit88App')
         title: product.title,
         cost: product.cost,
         count: product.saleCount,
-        purchaseCount: product.purchaseCount,
+        purchaseCost: product.purchaseCost,
         date: moment().format('x')
       }).then(res => {
         if (res.status != 200)

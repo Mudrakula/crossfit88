@@ -28,7 +28,7 @@ angular.module('crossfit88App')
     };
 
     $scope.getTickets = query => {
-      $http.get('/api/tickets?query='+query).then(res => {
+      $http.get('/api/tickets').then(res => {
         $scope.tickets = res.data;
       });
     };
@@ -185,7 +185,7 @@ angular.module('crossfit88App')
         type: 'ticket',
         title: ticket.title,
         cost: ticket.cost,
-        purchaseCount: 0,
+        purchaseCost: 0,
         date: moment().format('x')
       }).then(res => {
         if (res.status != 200)

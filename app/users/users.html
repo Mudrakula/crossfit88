@@ -1,10 +1,10 @@
 <div class="clearfix searchbox">
   <span class="btn btn-primary pull-right" ng-click="showUserModal()">Add user</span>
   <input type="text" class="form-control" ng-model="search.query" ng-model-options="{debounce: 500}" ng-change="getUsers()" placeholder="Search">
-  <select class="form-control filter" ng-model="search.trainer" ng-change="getUsers()">
+<!--   <select class="form-control filter" ng-model="search.trainer" ng-change="getUsers()">
     <option value="">All trainers</option>
     <option ng-repeat="trainer in trainers" value="{{trainer._id}}">{{trainer.firstname + ' ' + trainer.lastname}}</option>
-  </select>
+  </select> -->
   <select class="form-control filter" ng-model="search.ticket" ng-change="getUsers()">
     <option value="">All tickets</option>
     <option ng-repeat="ticket in tickets" value="{{ticket._id}}">{{ticket.title}}</option>
@@ -74,7 +74,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" ng-click="updateUser(currentUser)">{{currentUser._id ? 'Save changes' : 'Create'}}</button>
+        <button type="button" class="btn btn-primary" ng-click="currentUser._id ? updateUser(currentUser) : buyTicket(currentUser)">{{currentUser._id ? 'Save changes' : 'Create'}}</button>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->

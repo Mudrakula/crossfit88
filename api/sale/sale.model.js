@@ -7,7 +7,7 @@ let Sale = new Schema({
   title: String,
   cost: Number,
   count: {type: Number, default: 1},
-  purchaseCost: Number,
+  purchaseCost: {type: Number, default: 0},
   date: Number
 });
 

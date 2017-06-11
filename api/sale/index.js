@@ -17,6 +17,7 @@ router.post('/create', (req, res) => {
     if (err)
       return console.log(err);
 
+    console.log(data);
     res.status(200).json(data);
   });
 });
