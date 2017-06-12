@@ -6,6 +6,7 @@ angular.module('crossfit88App')
       .state('tickets', {
         url: '/tickets',
         templateUrl: 'app/tickets/tickets.html',
-        controller: 'TicketsCtrl'
+        controller: 'TicketsCtrl',
+        onlyAdmins: true
       });
   });

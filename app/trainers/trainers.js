@@ -7,6 +7,7 @@ angular.module('crossfit88App')
         url: '/trainers',
         templateUrl: 'app/trainers/trainers.html',
         controller: 'TrainersCtrl',
+        onlyAdmins: true,
         resolve: {
           trainers: $http => {
             return $http.get('/api/trainers').then(res => {

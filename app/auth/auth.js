@@ -12,7 +12,8 @@ angular.module('crossfit88App')
       .state('registration', {
         url: '/registration',
         templateUrl: 'app/auth/registration.html',
-        controller: 'AuthCtrl'
+        controller: 'AuthCtrl',
+        onlyAdmins: true
       })
       .state('logout', {
         url: '/logout',
