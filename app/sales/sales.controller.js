@@ -70,7 +70,6 @@ angular.module('crossfit88App')
     };
 
     $scope.getNetProfit = sales => {
-      console.log(sales);
       return _.reduce(sales, (result, sale) => result + (sale.cost - sale.purchaseCost) * sale.count, 0);
     };
   });
