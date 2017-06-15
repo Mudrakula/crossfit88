@@ -1,3 +1,4 @@
+<button class="btn btn-success pull-right" data-target="#export-modal" data-toggle="modal">Export to CSV</button>
 <h2>Sales</h2>
 <div class="row">
   <div class="col-md-8" id="calendar-wrapper">
@@ -32,3 +33,31 @@
     </div>
   </div> <!-- #day-details -->
 </div>
+
+<div class="modal fade" id="export-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Export to CSV</h4>
+      </div>
+      <div class="modal-body">
+        <div class="modal-form clearfix">
+          <h3>Select an export period</h3>
+          <div class="col-md-6">
+            <label>From:</label>
+            <input type="text" ng-model="fromDate" class="form-control" id="from-date">
+          </div>
+          <div class="col-md-6">
+            <label>To:</label>
+            <input type="text" ng-model="toDate" class="form-control" id="to-date">
+          </div>
+        </div> <!-- .modal-form -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="export(fromDate, toDate)">Export</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

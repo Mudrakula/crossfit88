@@ -72,4 +72,47 @@ angular.module('crossfit88App')
     $scope.getNetProfit = sales => {
       return _.reduce(sales, (result, sale) => result + (sale.cost - sale.purchaseCost) * sale.count, 0);
     };
+
+    $scope.export = (fromDate, toDate) => {
+      var fromDate = moment(fromDate, 'DD.MM.YYYY').startOf('day').format('x');
+      var toDate = moment(toDate, 'DD.MM.YYYY').endOf('day').format('x');
+
+      $http.post('/api/sales/export', {
+        fromDate: fromDate,
+        toDate: toDate
+      })
+        .then(res => {
+          if (res.status !== 200) {
+            swal({
+              title: 'Server error',
+              text: 'Please, try again',
+              type: 'error',
+              timer: 1000,
+              showConfirmButton: false
+            });
+            return console.log('Server error');
+          }
+
+          angular.element('<a/>')
+            .attr({
+              href: encodeURI(res.data),
+              target: '_blank',
+              download: 'filename.csv'
+            })[0].click();
+        });
+    };
+
+    angular.element('#from-date').datepicker({
+        autoclose: true,
+        container: '#export-modal .modal-body',
+        format: 'dd.mm.yyyy',
+        todayHighlight: true
+      });
+
+    angular.element('#to-date').datepicker({
+        autoclose: true,
+        container: '#export-modal .modal-body',
+        format: 'dd.mm.yyyy',
+        todayHighlight: true
+      });
   });
