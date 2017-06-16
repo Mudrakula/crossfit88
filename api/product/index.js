@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/update', (req, res) => {
+router.post('/', (req, res) => {
   req.body._id = req.body._id || new mongoose.mongo.ObjectID();
 
   Product.findOneAndUpdate({_id: req.body._id}, req.body, {new: true, upsert: true})
@@ -36,8 +36,8 @@ router.post('/update', (req, res) => {
     })
 });
 
-router.post('/delete', (req, res) => {
-  Product.remove({_id: req.body.id}, err => {
+router.delete('/:id', (req, res) => {
+  Product.remove({_id: req.params.id}, err => {
     if (err)
       return console.log(err);
 

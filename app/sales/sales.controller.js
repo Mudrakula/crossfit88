@@ -97,7 +97,7 @@ angular.module('crossfit88App')
             .attr({
               href: encodeURI(res.data),
               target: '_blank',
-              download: 'filename.csv'
+              download: _.last(res.data.split('/'))
             })[0].click();
         });
     };

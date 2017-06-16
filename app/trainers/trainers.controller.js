@@ -17,9 +17,7 @@ angular.module('crossfit88App')
         type: 'warning',
         showCancelButton: true
       }, () => {
-        $http.post('/api/trainers/delete', {
-          id: id
-        }).then(res => {
+        $http.delete('/api/trainers/' + id).then(res => {
           if (res.status != 200)
             return console.log(res);
 
@@ -34,7 +32,7 @@ angular.module('crossfit88App')
     };
 
     $scope.updateTrainer = trainer => {
-      $http.post('/api/trainers/update', trainer).then(res => {
+      $http.post('/api/trainers', trainer).then(res => {
         if (res.status != 200)
           return console.log(res);
 

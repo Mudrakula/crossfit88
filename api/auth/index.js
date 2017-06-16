@@ -44,4 +44,33 @@ router.post('/registration', (req, res) => {
   });
 });
 
+router.post('/update', (req, res) => {
+  Admin.findOneAndUpdate({_id: req.body._id}, req.body, {new: true, upsert: true}, (err, data) => {
+    if (err)
+      return console.log(err);
+
+    res.status(200).json(data);
+  });
+});
+
+router.get('/', (req, res) => {
+  Admin.find()
+    .sort('role')
+    .exec((err, data) => {
+      if (err)
+        return console.log(err);
+
+      res.status(200).json(data);
+    });
+});
+
+router.delete('/:id', (req, res) => {
+  Admin.remove({_id: req.params.id}, err => {
+    if (err)
+      return console.log(err);
+
+    res.status(200).send();
+  });
+});
+
 module.exports = router;

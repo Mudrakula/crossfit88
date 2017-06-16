@@ -28,7 +28,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/create', (req, res) => {
+router.post('/', (req, res) => {
   Training.create(req.body, (err, data) => {
     if (err)
       return console.log(err);

@@ -17,14 +17,13 @@ angular.module('crossfit88App')
         type: 'warning',
         showCancelButton: true
       }, () => {
-        $http.post('/api/tickets/delete', {
-          id: id
-        }).then(res => {
-          if (res.status != 200)
-            return console.log(res);
+        $http.delete('/api/tickets/' + id)
+          .then(res => {
+            if (res.status != 200)
+              return console.log(res);
 
-          $scope.tickets = _.filter($scope.tickets, ticket => ticket._id != id);
-        });
+            $scope.tickets = _.filter($scope.tickets, ticket => ticket._id != id);
+          });
       });
     };
 
@@ -34,7 +33,7 @@ angular.module('crossfit88App')
     };
 
     $scope.updateTicket = ticket => {
-      $http.post('/api/tickets/update', ticket).then(res => {
+      $http.post('/api/tickets', ticket).then(res => {
         if (res.status != 200)
           return console.log(res);
 

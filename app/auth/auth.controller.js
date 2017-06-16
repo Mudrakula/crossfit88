@@ -2,7 +2,9 @@
 
 angular.module('crossfit88App')
   .controller('AuthCtrl', function($scope, $state, Authentication) {
-    $scope.admin = {};
+    $scope.admin = {
+      role: 'employee'
+    };
 
     $scope.login = admin => {
       Authentication.login(admin).then(res => {
@@ -16,7 +18,7 @@ angular.module('crossfit88App')
     $scope.registration = admin => {
       Authentication.registration(admin).then(res => {
         if (res)
-          $state.go('users');
+          $state.go('admins');
       }, err => {
         $scope.admin.error = err;
       });

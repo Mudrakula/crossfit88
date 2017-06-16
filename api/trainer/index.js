@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/update', (req, res) => {
+router.post('/', (req, res) => {
   req.body._id = req.body._id || new mongoose.mongo.ObjectID();
   Trainer.findOneAndUpdate({_id: req.body._id}, req.body, {new: true, upsert: true}, (err, data) => {
     if (err)
@@ -23,8 +23,8 @@ router.post('/update', (req, res) => {
   });
 });
 
-router.post('/delete', (req, res) => {
-  Trainer.remove({_id: req.body.id}, err => {
+router.delete('/:id', (req, res) => {
+  Trainer.remove({_id: req.params.id}, err => {
     if (err)
       return console.log(err);
 

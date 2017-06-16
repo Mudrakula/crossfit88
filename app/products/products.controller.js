@@ -28,9 +28,7 @@ angular.module('crossfit88App')
         type: 'warning',
         showCancelButton: true
       }, () => {
-        $http.post('/api/products/delete', {
-          id: id
-        }).then(res => {
+        $http.delete('/api/products/' + id).then(res => {
           if (res.status != 200)
             return console.log(res);
 
@@ -45,7 +43,7 @@ angular.module('crossfit88App')
     };
 
     $scope.updateProduct = (product) => {
-      $http.post('/api/products/update', product).then(res => {
+      $http.post('/api/products', product).then(res => {
         if (res.status != 200)
           return console.log(res);
 
@@ -71,7 +69,7 @@ angular.module('crossfit88App')
     };
 
     $scope.buy = product => {
-      $http.post('/api/sales/create', {
+      $http.post('/api/sales', {
         type: 'product',
         title: product.title,
         cost: product.cost,

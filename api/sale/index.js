@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/create', (req, res) => {
+router.post('/', (req, res) => {
   Sale.create(req.body, (err, data) => {
     if (err)
       return console.log(err);

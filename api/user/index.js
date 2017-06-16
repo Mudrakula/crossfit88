@@ -44,7 +44,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/update', (req, res) => {
+router.post('/', (req, res) => {
   if (! req.body._id) {
     req.body._id = new mongoose.mongo.ObjectID();
     req.body.status = 0;
@@ -62,8 +62,8 @@ router.post('/update', (req, res) => {
     });
 });
 
-router.post('/delete', (req, res) => {
-  User.remove({_id: req.body.id}, err => {
+router.delete('/:id', (req, res) => {
+  User.remove({_id: req.params.id}, err => {
     if (err)
       return console.log(err);
 

@@ -35,6 +35,7 @@ app.use('/api/trainings', require('./api/training'));
 app.use('/api/tickets', require('./api/ticket'));
 app.use('/api/products', require('./api/product'));
 app.use('/api/sales', require('./api/sale'));
+app.use('/api/admins', require('./api/auth'));
 
 app.route('/*')
   .get(function(req, res) {

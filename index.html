@@ -17,8 +17,8 @@
     <a ui-sref-active="active" ng-if="user.role === 'admin'" ui-sref="trainers">Trainers</a>
     <a ui-sref-active="active" ui-sref="products">Products</a>
     <a ui-sref-active="active" ng-if="user.role === 'admin'" ui-sref="sales">Sales</a>
+    <a ui-sref-active="active" ui-sref="admins" ng-if="user.role === 'admin'">Admins</a>
     <a class="pull-right" ui-sref="logout">Logout</a>
-    <a class="pull-right" ng-if="user.role === 'admin'" ui-sref="registration">New admin</a>
   </nav>
   <div ui-view=""></div>
 
@@ -47,5 +47,7 @@
   <script src="app/products/products.js"></script>
   <script src="app/sales/sales.controller.js"></script>
   <script src="app/sales/sales.js"></script>
+  <script src="app/admins/admins.controller.js"></script>
+  <script src="app/admins/admins.js"></script>
 </body>
 </html>

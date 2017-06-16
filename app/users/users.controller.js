@@ -45,9 +45,7 @@ angular.module('crossfit88App')
         type: 'warning',
         showCancelButton: true
       }, () => {
-        $http.post('/api/users/delete', {
-          id: id
-        }).then(res => {
+        $http.delete('/api/users/' + id).then(res => {
           if (res.status != 200)
             return console.log(res);
 
@@ -77,7 +75,7 @@ angular.module('crossfit88App')
           remain: _.find($scope.tickets, ticket => ticket._id == user.ticket).trainingsCount
         };
 
-      $http.post('/api/users/update', user).then(res => {
+      $http.post('/api/users', user).then(res => {
         if (res.status != 200)
           return console.log(res);
 
@@ -104,7 +102,7 @@ angular.module('crossfit88App')
 
     $scope.addTraining = inUser => {
       let user = _.clone(inUser)
-      $http.post('/api/trainings/create', {
+      $http.post('/api/trainings', {
         client: user._id,
         trainer: user.trainer._id,
         date: moment().format('x')
@@ -126,7 +124,7 @@ angular.module('crossfit88App')
           user.ticket = null;
         }
 
-        $http.post('/api/users/update', user).then(res => {
+        $http.post('/api/users', user).then(res => {
           if (res.status != 200)
             return console.log(res);
 
@@ -144,7 +142,7 @@ angular.module('crossfit88App')
       }, () => {
         user.remainDays = moment(user.trainings.endDate).diff(moment(), 'days');
         user.status = -1;
-        $http.post('/api/users/update', user).then(res => {
+        $http.post('/api/users', user).then(res => {
           if (res.status != 200)
             return console.log(res);
 
@@ -157,7 +155,7 @@ angular.module('crossfit88App')
       user.trainings.endDate = moment().add(user.remainDays, 'd').endOf('date').format('x');
       user.remainDays = null;
       user.status = 1;
-      $http.post('/api/users/update', user).then(res => {
+      $http.post('/api/users', user).then(res => {
         if (res.status != 200)
           return console.log(res);
 
@@ -181,7 +179,7 @@ angular.module('crossfit88App')
 
     $scope.buyTicket = user => {
       let ticket = _.find($scope.tickets, ticket => ticket._id == user.ticket);
-      $http.post('/api/sales/create', {
+      $http.post('/api/sales', {
         type: 'ticket',
         title: ticket.title,
         cost: ticket.cost,
